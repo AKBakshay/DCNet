@@ -7,7 +7,25 @@ Single-image dehazing is an extensively studied field and an ill-posed problem f
 **Code will be uploaded soon**
 
 ## Results
+Experiment results of DCNet on standard images used for dehazing are shown below.
 
+Comparison of DehazeNet and DCNet on “bird” image is shown below. From left to right and top to bottom: Clear image and its feather region, hazy image and its feather region, dehazed image using DehazeNet and its feather region, and dehazed image using DCNet and its feather region
+
+<p align="center">
+  <img width="600"  src="https://github.com/AKBakshay/DCNet/blob/main/docs/images/bird_feathers_comparison.png">
+</p>
+
+Comparative visualization of dehazing methods on Canyon image. The zoomed views are shown for sky region in input hazy image (yellow box) and dehazed image using DCNet (red box) 
+
+<p align="center">
+  <img width="1000"  src="https://github.com/AKBakshay/DCNet/blob/main/docs/images/canyon_comparison.png">
+</p>
+
+Comparative visualization of dehazing methods on Girls image. The zoomed views are shown for region with illumination and haze both, in input hazy image (yellow box) and dehazed image using DCNet (red box)
+
+<p align="center">
+  <img width="1000"  src="https://github.com/AKBakshay/DCNet/blob/main/docs/images/girls_comparison.png">
+</p>
 
 ## Bibtex
 ```
