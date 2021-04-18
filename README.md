@@ -27,6 +27,18 @@ Comparative visualization of dehazing methods on Girls image. The zoomed views a
   <img width="1000"  src="https://github.com/AKBakshay/DCNet/blob/main/docs/images/girls_comparison.png">
 </p>
 
+---
+
+Comparison on Synthetic dataset
+<p align="center">
+  <img width="800"  src="https://github.com/AKBakshay/DCNet/blob/main/docs/images/DCNet_synthetic_dataset.png">
+</p>
+
+Comparison on Middleburry-stereo dataset
+<p align="center">
+  <img width="800"  src="https://github.com/AKBakshay/DCNet/blob/main/docs/images/DCNet_middleburry_dataset.png">
+</p>
+
 ## Bibtex
 ```
 @article{DBLP:journals/mva/BholaSV21,
