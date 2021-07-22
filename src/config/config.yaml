@@ -1,0 +1,41 @@
+basic:
+  load_weight: src/pretrained/model/model.pt
+  uint8_transform: True
+  cuda: True
+  add_haze: True
+
+train:
+  data_path: data/Custom_dataset
+  crops: 15
+  crop_size: 20
+  epochs: 1
+  batch_size: 4
+  learning_rate: 0.0001
+  alpha: 0.99
+  momentum: 0.7
+  gamma: 0.5
+  scheduler_steps: 50
+
+validate:
+  data_path: data/Valid
+
+test:
+  data_path: data/Valid
+  clean_data_path: /
+
+predict:
+  data_path: data/DatasetForSomeMoreResults
+
+output:
+  image_dir: data/output
+  weight_dir: src/output/model_parameters/model
+
+env:
+  transmission_map:
+    random_sampler: True
+    low: 0.5
+    high: 0.9
+  atm_light: 0.9
+
+image:
+  max_dimension: 2000
