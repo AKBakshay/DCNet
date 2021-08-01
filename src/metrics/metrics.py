@@ -37,6 +37,9 @@ class Metrics:
         print("SSIM: {}".format(avg(self.epoch_ssim)))
         print("PSNR: {}".format(avg(self.epoch_psnr)))
 
+    def get_metrics(self):
+        return (avg(self.epoch_loss), avg(self.epoch_ssim), avg(self.epoch_psnr))
+
     def evaluate_loss(self, src_data, output_data):
         batch_size = src_data.shape[0]
         for i in range(batch_size):

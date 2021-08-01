@@ -1,4 +1,5 @@
 import copy
+from pathlib import Path
 
 import numpy as np
 import torch
@@ -120,14 +121,15 @@ def depth2image(input_data, transmission_map, A):
 idx = 0
 
 
-def show_image(img_tensor):
-    global idx
-    # img = torchvision.transforms.ToPILImage()((img_tensor.cpu() * 255).type(torch.uint8)).convert(
-    #     "RGB"
-    # )
+def save_image(img_tensor, save_dir, fname):
+    # global idx
+    # # img = torchvision.transforms.ToPILImage()((img_tensor.cpu() * 255).type(torch.uint8)).convert(
+    # #     "RGB"
+    # # )
+    path = Path(save_dir)
     img = torchvision.transforms.ToPILImage()((img_tensor.cpu() * 255).type(torch.uint8))
-    img.save("data/tmp{}.png".format(idx))
-    idx += 1
+    img.save(path / fname)
+    # idx += 1
     # imshow(img)
     # show(img)
 

@@ -4,7 +4,7 @@ import torch
 import torchvision
 from src.common.tools import format_time
 from src.metrics.metrics import Metrics
-from src.process.image_processing import add_haze, clear_image, generate_input
+from src.process.image_processing import clear_image, generate_input
 from tqdm import tqdm
 
 

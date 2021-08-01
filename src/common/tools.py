@@ -1,7 +1,11 @@
+import datetime
 import os
 import re
+import time
+from pathlib import Path
 
 import numpy as np
+import torch
 from PIL import Image
 from torch.utils import data
 from torchvision import transforms
@@ -46,16 +50,34 @@ def avg(lst):
     return sum(lst) / len(lst)
 
 
-def get_save_dir(path):
+def get_save_path(save_path):
+    ts = time.time()
+    st = datetime.datetime.fromtimestamp(ts).strftime("%Y%m%d-%H%M%S")
+    path = Path(save_path)
+    return path / ("model_" + st)
+
+
+def get_save_dir(path, save_type):
     fname = "model.pt"
+    path = path / save_type
     if not os.path.isdir(path):
         os.makedirs(path)
-        return path + "/" + fname
-    for idx in range(100):
-        if not os.path.isdir(path + "_" + str(idx)):
-            os.makedirs(path + "_" + str(idx))
-            return path + "_" + str(idx) + "/" + fname
-    return path + "/" + fname
+    return path / fname
+
+
+def save_best_performing_model(validation_metrics, best_metrics, model, save_path):
+    if validation_metrics[1] > best_metrics[1]:  # ssim comparison
+        torch.save(
+            model.state_dict(),
+            get_save_dir(save_path, "best_performing"),
+        )
+        print("saved model parameters")
+
+
+def max(x, y):
+    if x[1] >= y[1]:
+        return x
+    return y
 
 
 def toTensor(files):
@@ -70,3 +92,8 @@ def get_tensor(file, transform):
     img = Image.open(file)
     result = transform(img)
     return result.unsqueeze(0)
+
+
+def get_file_name(file):
+    path = Path(file[0])
+    return path.name

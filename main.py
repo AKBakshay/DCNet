@@ -28,7 +28,10 @@ def train(cfg):
         ]
     )
 
-    validation_data_transform = transforms.Compose([transforms.ToTensor()])
+    validation_transformations = [transforms.ToTensor()]
+    if cfg["image"]["size_reduction"]:
+        validation_transformations.append(transforms.Resize(size=cfg["image"]["max_size"]))
+    validation_data_transform = transforms.Compose(validation_transformations)
 
     # -------------------- model -----------------------
 
@@ -69,7 +72,7 @@ def train(cfg):
         atm_light=cfg["env"]["atm_light"],
         t_map_random_sampler=cfg["env"]["transmission_map"]["random_sampler"],
         uint8_transform=cfg["basic"]["uint8_transform"],
-        save_path=cfg["output"]["weight"],
+        save_path=cfg["output"]["weight_dir"],
     )
 
     trainer.train()
@@ -79,7 +82,10 @@ def test(cfg):
 
     # -------------------- data ------------------------
 
-    data_transform = transforms.Compose([transforms.ToTensor()])
+    transformations = [transforms.ToTensor()]
+    if cfg["image"]["size_reduction"]:
+        transformations.append(transforms.Resize(size=cfg["image"]["max_size"]))
+    data_transform = transforms.Compose(transformations)
 
     # -------------------- model -----------------------
 
@@ -112,7 +118,10 @@ def predict(cfg):
 
     # -------------------- data ------------------------
 
-    data_transform = transforms.Compose([transforms.ToTensor()])
+    transformations = [transforms.ToTensor()]
+    if cfg["image"]["size_reduction"]:
+        transformations.append(transforms.Resize(size=cfg["image"]["max_size"]))
+    data_transform = transforms.Compose(transformations)
 
     # -------------------- model -----------------------
     model = DCNet()
@@ -126,6 +135,7 @@ def predict(cfg):
         dataset=cfg["predict"]["data_path"],
         atm_light=cfg["env"]["atm_light"],
         cuda=cfg["basic"]["cuda"],
+        prediction_dir=cfg["predict"]["save_dir"],
     )
 
     predictor.predict()
@@ -133,42 +143,6 @@ def predict(cfg):
 
 if __name__ == "__main__":
     parser = ArgumentParser()
-    # parser.add_argument("--training_dataset_path", default="data/Custom_dataset", type=str)
-    # parser.add_argument("--validation_dataset_path", default="data/Valid", type=str)
-    # parser.add_argument("--test_data_path", default="data/Valid", type=str)
-    # parser.add_argument(
-    #     "--prediction_data_path", default="data/DatasetForSomeMoreResults", type=str
-    # )
-    # parser.add_argument(
-    #     "--model_weights", default="src/output/model_parameters/model.pt", type=str
-    # )
-    # parser.add_argument("--save_path", default="src/output/model_parameters/model.pt", type=str)
-    # parser.add_argument("--train", action="store_true")
-    # parser.add_argument("--test", action="store_true")
-    # parser.add_argument("--available_clean_data", action="store_true")
-    # parser.add_argument("--transmission_map_random_sampler", action="store_true")
-    # parser.add_argument("--predict", action="store_true")
-    # parser.add_argument(
-    #     "--train_crops",
-    #     type=int,
-    #     default=15,
-    #     help="number of crops per image for training",
-    # )
-    # parser.add_argument("--crop_size", type=int, default=20)
-    # parser.add_argument("--epochs", type=int, default=50)
-    # parser.add_argument("--cuda", action="store_true")
-    # parser.add_argument("--batch_size", type=int, default=4)
-    # parser.add_argument("--learning_rate", type=float, default=1e-4)
-    # parser.add_argument("--alpha", type=float, default=0.99)
-    # parser.add_argument("--momentum", type=float, default=0.7)
-    # parser.add_argument("--gamma", type=float, default=0.5)
-    # parser.add_argument("--scheduler_steps", type=int, default=50)
-    # parser.add_argument("--uint8_transform", action="store_true")
-    # parser.add_argument("--add_haze", action="store_true")
-    # parser.add_argument("--transmission_map_low", type=float, default=0.5)
-    # parser.add_argument("--transmission_map_high", type=float, default=0.9)
-    # parser.add_argument("--tmap_random", action="store_true")
-    # parser.add_argument("--atm_light", type=float, default=0.9)
     parser.add_argument("--train", action="store_true")
     parser.add_argument("--test", action="store_true")
     parser.add_argument("--predict", action="store_true")

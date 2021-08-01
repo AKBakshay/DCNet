@@ -5,12 +5,7 @@ import torch
 import torchvision
 from src.common.tools import format_time
 from src.metrics.metrics import Metrics
-from src.process.image_processing import (
-    clear_image,
-    generate_input,
-    show_image,
-    show_image_grey,
-)
+from src.process.image_processing import clear_image, generate_input
 from torch.nn.functional import group_norm
 from tqdm import tqdm
 
@@ -56,28 +51,34 @@ class Trainer:
         self.atm_light = atm_light
         self.random_sampler = t_map_random_sampler
         self.uint8_transform = uint8_transform
-        self.save_path = save_path
+        self.save_path = tools.get_save_path(save_path)
         self.metrics = Metrics()
+        self.best_metrics = (0, 0, 0)  # (MSE,SSIM,PSNR)
 
     def train(self):
         start_time = time.time()
         total_loss = 0
         for epoch in range(self.epochs):
-            print("Epoch {}/{}".format(epoch + 1, self.epochs))
+            print("\nEpoch {}/{}".format(epoch + 1, self.epochs))
             print("-" * 89)
             epoch_loss = self.training_epoch()
             print("Training loss: {}".format(epoch_loss))
             self.validation_epoch()
             self.metrics.show()
             total_loss += epoch_loss / self.epochs
+
+            validation_metrics = self.metrics.get_metrics()
+            tools.save_best_performing_model(
+                validation_metrics, self.best_metrics, self.model, self.save_path
+            )
+            self.best_metrics = tools.max(self.best_metrics, validation_metrics)
+
         end_time = time.time()
         time_elapsed = end_time - start_time
         print("Training complete in {:.0f}hr {:.0f}m {:.0f}s".format(*(format_time(time_elapsed))))
         torch.save(
             self.model.state_dict(),
-            tools.get_save_dir(
-                self.save_path,
-            ),
+            tools.get_save_dir(self.save_path, "final"),
         )
 
     def training_epoch(self):
