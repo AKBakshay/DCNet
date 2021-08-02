@@ -1,3 +1,4 @@
+import logging
 import time
 
 import src.common.tools as tools
@@ -59,11 +60,13 @@ class Trainer:
         start_time = time.time()
         total_loss = 0
         for epoch in range(self.epochs):
+            logging.info("\nEpoch {}/{}".format(epoch + 1, self.epochs))
             print("\nEpoch {}/{}".format(epoch + 1, self.epochs))
             print("-" * 89)
             epoch_loss = self.training_epoch()
             print("Training loss: {}".format(epoch_loss))
             self.validation_epoch()
+            self.lr_scheduler.step()
             self.metrics.show()
             total_loss += epoch_loss / self.epochs
 
@@ -117,7 +120,6 @@ class Trainer:
 
                 running_loss += loss.item() * input_data.size()[0]
             epoch_loss += running_loss / len(dataset)
-            self.lr_scheduler.step()
         return epoch_loss
 
     def validation_epoch(self):

@@ -1,3 +1,4 @@
+import logging
 import pdb
 from argparse import ArgumentParser
 
@@ -18,6 +19,7 @@ from src.train.trainer import Trainer
 
 def train(cfg):
 
+    logging.info("-------------------- train ------------------------")
     # -------------------- data ------------------------
 
     training_data_transform = transforms.Compose(
@@ -37,6 +39,7 @@ def train(cfg):
 
     model = DCNet()
     model.initialize(cfg["basic"]["load_weight"], cfg["basic"]["cuda"])  # define
+    logging.info(model)
 
     # ------------------ training setup -------------------------
 
@@ -150,6 +153,13 @@ if __name__ == "__main__":
 
     with open(config.path["CONFIG_PATH"], "r") as ymlfile:
         cfg = yaml.load(ymlfile)
+
+    logging.basicConfig(
+        filename=tools.get_logger_path(cfg),
+        filemode="w",
+        format="%(name)s - %(levelname)s - %(message)s",
+    )
+    logging.info(cfg)
 
     if args.train:
         train(cfg)

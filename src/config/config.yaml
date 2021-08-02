@@ -5,7 +5,7 @@ basic:
   add_haze: True
 
 train:
-  data_path: data/Custom_dataset
+  data_path: data/train/custom_dataset
   crops: 15
   crop_size: 20
   epochs: 10
@@ -13,14 +13,14 @@ train:
   learning_rate: 0.0001
   alpha: 0.99
   momentum: 0.7
-  gamma: 0.5
-  scheduler_steps: 50
+  gamma: 0.1
+  scheduler_steps: 5
 
 validate:
-  data_path: data/Valid
+  data_path: data/Middleburry
 
 test:
-  data_path: data/Valid
+  data_path: data/Middleburry
   clean_data_path: /
 
 predict:
@@ -30,6 +30,9 @@ predict:
 output:
   image_dir: data/output
   weight_dir: src/output/model_parameters/model
+
+log:
+  dir: src/log
 
 env:
   transmission_map:

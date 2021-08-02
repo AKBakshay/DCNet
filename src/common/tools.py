@@ -7,6 +7,7 @@ from pathlib import Path
 import numpy as np
 import torch
 from PIL import Image
+from src.common.time import Time
 from torch.utils import data
 from torchvision import transforms
 
@@ -51,8 +52,7 @@ def avg(lst):
 
 
 def get_save_path(save_path):
-    ts = time.time()
-    st = datetime.datetime.fromtimestamp(ts).strftime("%Y%m%d-%H%M%S")
+    st = Time.string_timestamp
     path = Path(save_path)
     return path / ("model_" + st)
 
@@ -97,3 +97,9 @@ def get_tensor(file, transform):
 def get_file_name(file):
     path = Path(file[0])
     return path.name
+
+
+def get_logger_path(cfg):
+    path = Path(cfg["log"]["dir"])
+    path = path / ("app-" + Time.string_timestamp + ".log")
+    return path
