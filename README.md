@@ -4,7 +4,15 @@
 Single-image dehazing is an extensively studied field and an ill-posed problem faced by vision-based systems in an outdoor environment. This paper proposes a dark channel network to estimate the transmission map of an input hazy scene for single-image dehazing. The architecture constitutes two major components—feature extraction layer and convolutional neural network layer. The former extracts the haze relevant features, while latter convolve these features with filter kernels to estimate the true scene transmission. Finally, the estimated transmission map is used to obtain the dehazed image using atmospheric scattering model. The experiments have been performed on synthetic hazy images and benchmark hazy dataset available in the literature. The performance of the proposed architecture outperforms the existing models in terms of standard quantitative metrics—mean square error, structural similarity index, and peak signal-to-noise ratio.
 
 ## Code
-**Code will be uploaded soon**
+Code is setup to train, test and predict results on image sets. Confurations are provided in ```src/config/config.yaml``` file. The commands are following: <br>
+
+**Training:** <br>
+```python main.py --train``` <br> <br>
+**Testing (evaluating metrics on image set):** <br>
+```python main.py --test``` <br> <br>
+**Predict (dehaze and save results on image set):** <br>
+```python main.py --predict``` <br> <br>
+
 
 ## Results
 Experiment results of DCNet on standard images used for dehazing are shown below.
