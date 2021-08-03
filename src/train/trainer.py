@@ -1,3 +1,4 @@
+import logging
 import time
 
 import src.common.tools as tools
@@ -64,6 +65,7 @@ class Trainer:
             epoch_loss = self.training_epoch()
             print("Training loss: {}".format(epoch_loss))
             self.validation_epoch()
+            self.lr_scheduler.step()
             self.metrics.show()
             total_loss += epoch_loss / self.epochs
 
@@ -117,7 +119,6 @@ class Trainer:
 
                 running_loss += loss.item() * input_data.size()[0]
             epoch_loss += running_loss / len(dataset)
-            self.lr_scheduler.step()
         return epoch_loss
 
     def validation_epoch(self):
@@ -144,28 +145,3 @@ class Trainer:
             # show_image(output_data[0])
             # show_image(ground_truth[0])
             self.metrics.add(ground_truth, output_data)
-
-    # def validation_epoch(self):
-    #     self.metrics.reset()
-    #     dataset = torchvision.datasets.ImageFolder(
-    #         self.validation_dataset_path, transform=self.valid_transform
-    #     )
-    #     dataloader = torch.utils.data.DataLoader(
-    #         dataset, batch_size=self.batch_size, shuffle=False
-    #     )
-
-    #     for input_data, _ in tqdm(dataloader, desc="Validating"):
-    #         input_data, hazy_data, ground_truth = generate_input(
-    #             input_data=input_data,
-    #             t_low=self.t_low,
-    #             t_high=self.t_high,
-    #             A=self.atm_light,
-    #             cuda=self.cuda,
-    #             uint8_transform=self.uint8_transform,
-    #         )
-
-    #         output_data = self.model(input_data)
-    #         output_data = clear_image(output_data, hazy_data, self.atm_light)
-    #         # show_image(output_data[0])
-    #         # show_image(ground_truth[0])
-    #         self.metrics.add(ground_truth, output_data)

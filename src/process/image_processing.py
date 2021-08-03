@@ -105,7 +105,7 @@ def concatenate_maps(x1, x2, x3, x4, x5, x6):
 
 
 def clear_image(t, input_data, A):
-    transmission_map = t.clamp(min=0.2, max=1)  # [check] look at clamp min max
+    transmission_map = t.clamp(min=0.1, max=1)  # [check] look at clamp min max
     output = depth2image(input_data, transmission_map, A)
     output = output.clamp(min=0, max=1)
     return output

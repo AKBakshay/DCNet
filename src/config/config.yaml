@@ -2,10 +2,10 @@ basic:
   load_weight: src/pretrained/model/model.pt
   uint8_transform: False
   cuda: True
-  add_haze: True
+  # add_haze: True
 
 train:
-  data_path: data/Custom_dataset
+  data_path: data/train/custom_dataset
   crops: 15
   crop_size: 20
   epochs: 10
@@ -13,19 +13,21 @@ train:
   learning_rate: 0.0001
   alpha: 0.99
   momentum: 0.7
-  gamma: 0.5
-  scheduler_steps: 50
+  gamma: 0.1
+  scheduler_steps: 5
 
 validate:
-  data_path: data/Valid
+  data_path: data/Middleburry
 
 test:
-  data_path: data/Valid
+  data_path: data/Middleburry
   clean_data_path: /
 
 predict:
-  data_path: data/DatasetForSomeMoreResults/test_images
+  data_path: data/DatasetForSomeMoreResults
   save_dir: src/output/predictions
+  uint8_transform: False
+  add_ext_haze: False
 
 output:
   image_dir: data/output
@@ -35,9 +37,9 @@ env:
   transmission_map:
     random_sampler: True
     low: 0.5
-    high: 0.9
-  atm_light: 0.9
+    high: 0.7
+  atm_light: 1.0
 
 image:
-  size_reduction: true
-  max_size: 500
+  size_reduction: False
+  max_size: 600

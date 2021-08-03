@@ -134,6 +134,11 @@ def predict(cfg):
         transform=data_transform,
         dataset=cfg["predict"]["data_path"],
         atm_light=cfg["env"]["atm_light"],
+        add_ext_haze=cfg["predict"]["add_ext_haze"],
+        t_low=cfg["env"]["transmission_map"]["low"],
+        t_high=cfg["env"]["transmission_map"]["high"],
+        t_map_random_sampler=cfg["env"]["transmission_map"]["random_sampler"],
+        uint8_transform=cfg["predict"]["uint8_transform"],
         cuda=cfg["basic"]["cuda"],
         prediction_dir=cfg["predict"]["save_dir"],
     )
