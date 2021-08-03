@@ -4,7 +4,7 @@ basic:
   cuda: True
 
 train:
-  data_path: data/train/custom_dataset
+  data_path: dataset/train/custom_dataset
   crops: 15
   crop_size: 20
   epochs: 10
@@ -16,20 +16,20 @@ train:
   scheduler_steps: 5
 
 validate:
-  data_path: data/Middleburry
+  data_path: dataset/Middleburry
 
 test:
-  data_path: data/Middleburry
+  data_path: dataset/Middleburry
   clean_data_path: /
 
 predict:
-  data_path: data/Natural
+  data_path: dataset/Natural
   save_dir: src/output/predictions
   uint8_transform: False
   add_ext_haze: False
 
 output:
-  image_dir: data/output
+  image_dir: dataset/output
   weight_dir: src/output/model_parameters/model
 
 env:
