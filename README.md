@@ -6,7 +6,7 @@ Single-image dehazing is an extensively studied field and an ill-posed problem f
 ## Code
 
 ###  Model setup
-* Run ```/setup.sh```
+* Run ```bash setup.sh```
 
 **Or**
 
