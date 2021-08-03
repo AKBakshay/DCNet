@@ -1,5 +1,5 @@
 # DCNet: Dark Channel Network for single-image dehazing
-### [Paper](https://rdcu.be/chalm)
+### [Paper](https://rdcu.be/chalm) | [Data & model](https://drive.google.com/drive/folders/14LCCAQ0tulyhpkOiPb3cWSNfb77gcV1E?usp=sharing)
 ## Abstract 
 Single-image dehazing is an extensively studied field and an ill-posed problem faced by vision-based systems in an outdoor environment. This paper proposes a dark channel network to estimate the transmission map of an input hazy scene for single-image dehazing. The architecture constitutes two major components—feature extraction layer and convolutional neural network layer. The former extracts the haze relevant features, while latter convolve these features with filter kernels to estimate the true scene transmission. Finally, the estimated transmission map is used to obtain the dehazed image using atmospheric scattering model. The experiments have been performed on synthetic hazy images and benchmark hazy dataset available in the literature. The performance of the proposed architecture outperforms the existing models in terms of standard quantitative metrics—mean square error, structural similarity index, and peak signal-to-noise ratio.
 
