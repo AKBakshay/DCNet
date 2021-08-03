@@ -63,6 +63,4 @@ class Tester:
 
             output_data = self.model(input_data)
             output_data = clear_image(output_data, hazy_data, self.atm_light)
-            # show_image(output_data[0])
-            # show_image(ground_truth[0])
             self.metrics.add(ground_truth, output_data)

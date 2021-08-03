@@ -1,14 +1,10 @@
-import pdb
 from argparse import ArgumentParser
 
 import torch
-import torch.nn.functional as F
 import torch.utils.data
 import yaml
 from torchvision import transforms
-from torchvision.transforms.transforms import Resize
 
-import src.common.tools as tools
 import src.config.config as config
 from src.model.nn.dcnet import DCNet
 from src.test.predictor import Predictor

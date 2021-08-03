@@ -1,8 +1,7 @@
 basic:
-  load_weight: src/pretrained/model/model.pt
+  load_weight: src/pretrain/model/model.pt
   uint8_transform: False
   cuda: True
-  # add_haze: True
 
 train:
   data_path: data/train/custom_dataset
@@ -10,7 +9,7 @@ train:
   crop_size: 20
   epochs: 10
   batch_size: 4
-  learning_rate: 0.0001
+  learning_rate: 0.00001
   alpha: 0.99
   momentum: 0.7
   gamma: 0.1
@@ -24,7 +23,7 @@ test:
   clean_data_path: /
 
 predict:
-  data_path: data/DatasetForSomeMoreResults
+  data_path: data/Natural
   save_dir: src/output/predictions
   uint8_transform: False
   add_ext_haze: False
@@ -37,7 +36,7 @@ env:
   transmission_map:
     random_sampler: True
     low: 0.5
-    high: 0.7
+    high: 0.8
   atm_light: 1.0
 
 image:

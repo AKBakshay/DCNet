@@ -1,5 +1,4 @@
 import numpy as np
-from nose.util import src
 from numpy.core.fromnumeric import mean
 from skimage.metrics import peak_signal_noise_ratio as psnr
 from skimage.metrics import structural_similarity as ssim
@@ -17,11 +16,6 @@ class Metrics:
         self.epoch_loss = []
         self.epoch_ssim = []
         self.epoch_psnr = []
-
-    # def add(self, src_data, output_data):
-    #     self.evaluate_loss(src_data.detach().cpu().numpy(), output_data.detach().cpu().numpy())
-    #     self.evaluate_ssim(src_data.detach().cpu().numpy(), output_data.detach().cpu().numpy())
-    #     self.evaluate_psnr(src_data.detach().cpu().numpy(), output_data.detach().cpu().numpy())
 
     def add(self, src_data, output_data):
         src_data = src_data.detach().cpu().numpy()

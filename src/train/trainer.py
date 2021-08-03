@@ -1,4 +1,3 @@
-import logging
 import time
 
 import src.common.tools as tools
@@ -7,7 +6,6 @@ import torchvision
 from src.common.tools import format_time
 from src.metrics.metrics import Metrics
 from src.process.image_processing import clear_image, generate_input
-from torch.nn.functional import group_norm
 from tqdm import tqdm
 
 
@@ -84,7 +82,6 @@ class Trainer:
         )
 
     def training_epoch(self):
-        # self.metrics.reset()
         epoch_loss = 0.0
         for crop_no in tqdm(range(self.train_crops), desc="Training"):
             dataset = torchvision.datasets.ImageFolder(
@@ -110,10 +107,7 @@ class Trainer:
 
                 output_data = self.model(input_data)
                 output_data = clear_image(output_data, hazy_data, self.atm_light)
-                # show_image(output_data[0])
-                # show_image(ground_truth[0])
                 loss = self.criterion(output_data, ground_truth)
-                # self.metrics.add(ground_truth, output_data)
                 loss.backward()
                 self.optimizer.step()
 
@@ -142,6 +136,4 @@ class Trainer:
 
             output_data = self.model(input_data)
             output_data = clear_image(output_data, hazy_data, self.atm_light)
-            # show_image(output_data[0])
-            # show_image(ground_truth[0])
             self.metrics.add(ground_truth, output_data)
